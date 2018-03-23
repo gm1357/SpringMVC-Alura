@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
@@ -61,5 +63,13 @@ public class ProdutoController {
 	public String listar(Model model) {
 		model.addAttribute("produtos", produtoDao.listar());
 		return "produtos/lista";
+	}
+	
+	@RequestMapping("/detalhe/{id}")
+	public String detalhe(@PathVariable("id") Integer id, Model model) {
+	  Produto produto = produtoDao.find(id);
+	  model.addAttribute("produto",produto);
+	  model.addAttribute("contextPath","casadocodigo/");
+	  return "produtos/detalhes";
 	}
 }
