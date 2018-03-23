@@ -10,6 +10,7 @@
 </head>
 <body>
 	<h1>Produto cadastrados</h1>
+	<div>${sucesso}</div>
 	
 	<table>
 		<thead>
