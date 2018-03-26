@@ -24,13 +24,6 @@ public class PagamentoController {
 	@Autowired
     RestTemplate restTemplate;
 	
-//	@RequestMapping(value="/finalizar", method=RequestMethod.POST)
-//    public String finalizar(RedirectAttributes model){
-//        System.out.println(carrinho.getTotal());
-//        model.addFlashAttribute("sucesso", "Pagamento Realizado com Sucesso");
-//        return "redirect:/produtos";
-//    }
-	
 	@RequestMapping(value="/finalizar", method=RequestMethod.POST)
 	public Callable<ModelAndView> finalizar(RedirectAttributes model){
 	    return () -> {
