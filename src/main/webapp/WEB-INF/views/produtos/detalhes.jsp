@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,7 @@
                 <nav id="main-nav">
 
                     <ul class="clearfix">
-                        <li><a href="/cart" rel="nofollow">Carrinho (${carrinhoCompras.quantidade}) </a></li>
+                        <li><a href="${spring:mvcUrl('CC#itens').build()}" rel="nofollow">Carrinho (${carrinhoCompras.quantidade}) </a></li>
 
                         <li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">Sobre Nós</a></li>
 
@@ -107,7 +108,7 @@
 	              ${preco.tipo} 
 	            </label>
 	            <small class="compare-at-price">R$ 39,90</small>
-	            <p class="variant-price">${produto.titulo}</p>
+	            <p class="variant-price">${preco.valor}</p>
 	          </li>
 	        </c:forEach>           
 	    </ul>
