@@ -8,28 +8,53 @@
 <meta charset="UTF-8">
 <title>Livros de Java, Android, iPhone, Ruby, PHP e muito mais -
 	Casa do Código</title>
+<c:url value="/resources/css/" var="cssPath"></c:url>
+<link rel="stylesheet" href="${cssPath }bootstrap.min.css" />
+<link rel="stylesheet" href="${cssPath }bootstrap-theme.min.css" />
 </head>
 <body>
-	<h1>Produto cadastrados</h1>
-	<div>${sucesso}</div>
-	
-	<table>
-		<thead>
-			<tr>
-				<td>Título</td>
-				<td>Descrição</td>
-				<td>Páginas</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${produtos}" var="produto">
-		        <tr>
-		            <td><a href="${spring:mvcUrl('PC#detalhe').arg(0,produto.id).build()}">${produto.titulo}</a></td>
-		            <td>${produto.descricao}</td>
-		            <td>${produto.paginas}</td>
-		        </tr>
-		    </c:forEach>
-		</tbody>
-	</table>
+	<nav class="navbar navbar-inverse">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="${spring:mvcUrl('HC#index').build()}">Casa do Código</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li><a href="${spring:mvcUrl('PC#listar').build()}">Lista de Produtos</a></li>
+	        <li><a href="${spring:mvcUrl('PC#form').build()}">Cadastro de Produtos</a></li>
+	    </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div>
+	</nav>
+	<div class="container">
+		
+		<h1>Produto cadastrados</h1>
+		<div>${sucesso}</div>
+		
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Título</th>
+					<th>Descrição</th>
+					<th>Páginas</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${produtos}" var="produto">
+			        <tr>
+			            <td><a href="${spring:mvcUrl('PC#detalhe').arg(0,produto.id).build()}">${produto.titulo}</a></td>
+			            <td>${produto.descricao}</td>
+			            <td>${produto.paginas}</td>
+			        </tr>
+			    </c:forEach>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
