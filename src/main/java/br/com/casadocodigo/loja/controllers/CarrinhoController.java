@@ -41,4 +41,10 @@ public class CarrinhoController {
 	public String itens(){
 	    return "/carrinho/itens";
 	}
+	
+	@RequestMapping("/remover")
+	public String remover(Integer produtoId, TipoPreco tipoPreco){
+	    carrinho.remover(produtoId, tipoPreco);
+	    return "redirect:/carrinho";
+	}
 }
