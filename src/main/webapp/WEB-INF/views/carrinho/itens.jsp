@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,17 +46,19 @@
 
   <header id="layout-header">
 		<div class="clearfix container">
-			<a href="${s:mvcUrl('HC#index').build() }" id="logo">
+			<a href="/casadocodigo/" id="logo">
 			</a>
 			<div id="header-content">
 				<nav id="main-nav">
 					
 					<ul class="clearfix">
 
-					    <li><a href="${s:mvcUrl('PC#listar').build() }" rel="nofollow">Listagem de Produtos</a></li>
-					    <li><a href="${s:mvcUrl('PC#form').build() }" rel="nofollow">Cadastro de Produtos</a></li>
+						<security:authorize access="hasRole('ROLE_ADMIN')">
+						    <li><a href="/casadocodigo/produtos" rel="nofollow">Listagem de Produtos</a></li>
+						    <li><a href="/casadocodigo/produtos/form" rel="nofollow">Cadastro de Produtos</a></li>
+						</security:authorize>
 					
-					    <li><a href="${s:mvcUrl('CC#itens').build() }" rel="nofollow">Carrinho</a></li>
+					    <li><a href="/casadocodigo/carrinho" rel="nofollow">Carrinho</a></li>
 					    <li><a href="#" rel="nofollow">Sobre Nós</a></li>
 					</ul>
 				</nav>
@@ -115,9 +119,9 @@
 				        </td>
 				        <td class="numeric-cell">${carrinhoCompras.getTotal(item)}</td>
 				        <td>
-						    <form action="${s:mvcUrl('CC#remover').arg(0, item.produto.id).arg(1,item.tipoPreco).build() }" method="post">
+						    <form:form servletRelativeAction="/casadocodigo/carrinho/remover?produtoId=${item.produto.id }&tipoPreco=${item.tipoPreco }" method="post">
 						        <input type="image" src="${contextPath}resources/imagens/excluir.png" alt="Excluir" title="Excluir" />
-						    </form>
+						    </form:form>
 						</td>
 				    </tr>
 				</c:forEach>
@@ -125,9 +129,9 @@
 			      <tfoot>
 				    <tr>
 				        <td colspan="3">
-				            <form action="${s:mvcUrl('PC#finalizar').build()}" method="post">
+				            <form:form servletRelativeAction="/casadocodigo/pagamentos/finalizar" method="post">
 							    <input type="submit" class="checkout" name="checkout" value="Finalizar compra" />
-							</form>
+							</form:form>
 				        </td>
 				        <td class="numeric-cell">${carrinhoCompras.total}</td>
 				        <td></td>

@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,8 +53,10 @@
 
                     <ul class="clearfix">
 
-					    <li><a href="${s:mvcUrl('PC#listar').build() }" rel="nofollow">Listagem de Produtos</a></li>
-					    <li><a href="${s:mvcUrl('PC#form').build() }" rel="nofollow">Cadastro de Produtos</a></li>
+					    <security:authorize access="hasRole('ROLE_ADMIN')">
+						    <li><a href="${s:mvcUrl('PC#listar').build() }" rel="nofollow">Listagem de Produtos</a></li>
+						    <li><a href="${s:mvcUrl('PC#form').build() }" rel="nofollow">Cadastro de Produtos</a></li>
+						</security:authorize>
 					
 					    <li><a href="${s:mvcUrl('CC#itens').build() }" rel="nofollow">Carrinho</a></li>
 					    <li><a href="#" rel="nofollow">Sobre Nós</a></li>
@@ -99,7 +103,7 @@
 
 
       <section class="buy-options clearfix">  
-      <form action='<c:url value="/carrinho/add" />' method="post" class="container">
+      <form:form servletRelativeAction="/carrinho/add" method="post" cssClass="container">
         <input type="hidden" name="produtoId" value="${produto.id}" />
 	    <ul id="variants" class="clearfix">
 	        <c:forEach items="${produto.precos}" var="preco">
@@ -114,7 +118,7 @@
 	        </c:forEach>           
 	    </ul>
 	    <button type="submit" class="submit-image icon-basket-alt" alt="Compre Agora" title="Compre Agora${produto.titulo}"></button>
-	  </form>
+	  </form:form>
 
     </section>
 
