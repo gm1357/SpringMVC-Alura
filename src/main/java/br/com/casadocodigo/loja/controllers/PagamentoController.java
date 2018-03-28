@@ -59,6 +59,8 @@ public class PagamentoController {
 	    email.setTo(usuario.getEmail());
 	    email.setText("Compra aprovada com sucesso no valor de " + carrinho.getTotal());
 	    email.setFrom("compras@casadocodigo.com.br");
+	    
+	    sender.send(email);
 	}
 
 }
